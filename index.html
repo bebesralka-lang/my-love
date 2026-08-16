@@ -38,7 +38,7 @@
             z-index: 0;
         }
 
-        /* ===== ШАРИКИ ПО КРАЯМ ===== */
+        /* ===== ШАРИКИ ===== */
         .balloons-deco {
             position: fixed;
             font-size: 2.8rem;
@@ -88,12 +88,6 @@
             margin-bottom: 8px;
             font-family: 'Georgia', serif;
             text-shadow: 0 0 30px rgba(252, 129, 152, 0.2);
-        }
-        #entryScreen .sub {
-            color: #9c7ab8;
-            font-size: 1.2rem;
-            margin-bottom: 25px;
-            font-style: italic;
         }
         .entry-game {
             display: flex;
@@ -147,7 +141,7 @@
             width: 100%;
             position: relative;
             z-index: 1;
-            display: grid;
+            display: none;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             padding: 10px;
@@ -177,7 +171,6 @@
             box-shadow: 0 12px 40px rgba(0,0,0,0.25);
         }
 
-        /* ===== БЛОК 1 (главный) ===== */
         .block-main {
             grid-column: 1 / -1;
             min-height: unset;
@@ -474,6 +467,21 @@
             100% { transform: scale(1.5); opacity: 0; }
         }
 
+        /* ===== ЛОПНИ ШАРИК ===== */
+        .balloon-click {
+            cursor: pointer;
+            transition: 0.3s;
+            user-select: none;
+        }
+        .balloon-click:hover {
+            transform: scale(1.1);
+        }
+        .balloon-click.popped {
+            opacity: 0.15;
+            transform: scale(0.5);
+            pointer-events: none;
+        }
+
         /* ===== АДАПТАЦИЯ ===== */
         @media (max-width: 750px) {
             .grid {
@@ -541,7 +549,6 @@
     <!-- ============================================================ -->
     <div id="entryScreen">
         <h1>💕 Любишь ли ты меня?</h1>
-        <div class="sub">✦ нажми «Да», если я твоя ✦</div>
         <div class="entry-game" id="entryGame">
             <button id="entryYes">💕 Да!</button>
             <button id="entryNo">😤 Нет</button>
@@ -632,7 +639,7 @@
             <button class="confetti-btn" id="confettiBtn">🎉 Запустить салют</button>
         </div>
 
-        <!-- ===== БЛОК 5: ЛОПАНИ ШАРИК ===== -->
+        <!-- ===== БЛОК 5: ЛОПНИ ШАРИК ===== -->
         <div class="block">
             <div style="color: #fc8198; font-size: 1rem; font-weight: bold; margin-bottom: 6px; letter-spacing: 1px;">
                 🎈 Лопни шарик
@@ -662,7 +669,7 @@
     <!-- ============================================================ -->
     <script>
         // ================================================================
-        // 1. ЭКРАН ВХОДА
+        // 1. ЭКРАН ВХОДА (ИСПРАВЛЕН)
         // ================================================================
         const entryYes = document.getElementById('entryYes');
         const entryNo = document.getElementById('entryNo');
@@ -847,3 +854,93 @@
                 el.style.fontSize = (Math.random() * 24 + 16) + 'px';
                 el.style.animationDuration = (Math.random() * 2.5 + 2) + 's';
                 el.style.animationDelay = (Math.random() * 1.2) + 's';
+                confettiContainer.appendChild(el);
+                setTimeout(() => el.remove(), 4500);
+            }
+        }
+
+        confettiBtn.addEventListener('click', function() {
+            launchConfetti(50);
+            this.textContent = '🎉 Салют!';
+            setTimeout(() => {
+                this.textContent = '🎉 Запустить салют';
+            }, 1500);
+        });
+
+        // ================================================================
+        // 8. ЛОПНИ ШАРИК
+        // ================================================================
+        function popBalloonClick(el) {
+            if (!el.classList.contains('popped')) {
+                el.classList.add('popped');
+                el.textContent = '💥';
+                setTimeout(() => {
+                    el.textContent = '🎈';
+                    el.classList.remove('popped');
+                }, 1500);
+            }
+        }
+
+        // ================================================================
+        // 9. ШАРИКИ ПО КРАЯМ
+        // ================================================================
+        document.querySelectorAll('.balloons-deco').forEach(balloon => {
+            balloon.addEventListener('click', function(e) {
+                const pop = document.createElement('div');
+                pop.className = 'pop-animation';
+                pop.textContent = '💥';
+                pop.style.left = (e.clientX - 30) + 'px';
+                pop.style.top = (e.clientY - 30) + 'px';
+                document.body.appendChild(pop);
+                setTimeout(() => pop.remove(), 600);
+
+                this.textContent = '💫';
+                this.style.opacity = '0.2';
+                this.style.pointerEvents = 'none';
+                setTimeout(() => {
+                    this.textContent = '🎈';
+                    this.style.opacity = '0.5';
+                    this.style.pointerEvents = 'auto';
+                }, 2000);
+            });
+        });
+
+        // ================================================================
+        // 10. ЦИТАТЫ
+        // ================================================================
+        const quotes = [
+            '«Любовь — это когда два человека смотрят в одном направлении»',
+            '«Ты — моё утро, мой день и моя ночь»',
+            '«С тобой я чувствую себя дома»',
+            '«Любовь не требует слов, она чувствуется сердцем»',
+            '«Ты — лучшее, что со мной случилось»',
+            '«Наша любовь — это сказка, в которой мы главные герои»'
+        ];
+        let quoteIndex = 1;
+
+        function newQuote() {
+            const display = document.getElementById('quoteDisplay');
+            display.textContent = quotes[quoteIndex % quotes.length];
+            quoteIndex++;
+        }
+
+        // ================================================================
+        // АНИМАЦИЯ КОНФЕТТИ
+        // ================================================================
+        const style = document.createElement('style');
+        style.textContent = `
+                    @keyframes confettiFall {
+                        0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+                        100% { transform: translateY(120vh) rotate(720deg); opacity: 0; }
+                    }
+                `;
+        document.head.appendChild(style);
+
+        // НЕБОЛЬШОЙ КОНФЕТТИ ПРИ СТАРТЕ
+        setTimeout(() => launchConfetti(12), 400);
+
+        console.log('💕 Сайт для первого клиента готов!');
+    </script>
+
+</body>
+</html>
