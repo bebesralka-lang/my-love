@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>💕 Наша история любви</title>
     <style>
-        /* ===== БАЗА ===== */
         * {
             margin: 0;
             padding: 0;
@@ -23,7 +22,6 @@
             background: #fce4ec;
         }
 
-        /* ===== ФОНОВОЕ ФОТО ===== */
         body::before {
             content: '';
             position: fixed;
@@ -39,7 +37,6 @@
             z-index: 0;
         }
 
-        /* ===== ШАРИКИ ПО КРАЯМ ===== */
         .balloons-deco {
             position: fixed;
             font-size: 2.8rem;
@@ -61,7 +58,6 @@
             50% { transform: rotate(2deg) translateY(-6px); }
         }
 
-        /* ===== ЭКРАН ВХОДА ===== */
         #entryScreen {
             position: fixed;
             top: 0;
@@ -142,7 +138,6 @@
             opacity: 1;
         }
 
-        /* ===== КАРТОЧКА ===== */
         .card {
             max-width: 700px;
             width: 100%;
@@ -164,7 +159,6 @@
             transform: translateY(0);
         }
 
-        /* ===== ЗАГОЛОВКИ ===== */
         .title {
             font-size: 2.4rem;
             font-weight: bold;
@@ -204,7 +198,6 @@
             font-style: italic;
         }
 
-        /* ===== ФОТО-ПОЛЯРОИД ===== */
         .polaroid {
             background: rgba(255, 248, 240, 0.5);
             backdrop-filter: blur(4px);
@@ -235,7 +228,6 @@
             opacity: 0.6;
         }
 
-        /* ===== СЧЁТЧИК ДНЕЙ ===== */
         .counter-box {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.04);
@@ -265,7 +257,35 @@
             margin: 0 2px;
         }
 
-        /* ===== ПИСЬМО ===== */
+        .timer-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 20px;
+            padding: 8px 16px;
+            margin: 6px auto 10px;
+            display: inline-block;
+        }
+        .timer-box .label {
+            font-size: 0.55rem;
+            color: #f8bbd0;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.6;
+        }
+        .timer-box .time {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 1px;
+            font-family: 'Georgia', serif;
+        }
+        .timer-box .time span {
+            background: rgba(255,255,255,0.04);
+            padding: 2px 8px;
+            border-radius: 8px;
+            margin: 0 2px;
+        }
+
         .letter-btn {
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.04);
@@ -308,7 +328,6 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== КАРУСЕЛЬ ===== */
         .carousel-container {
             position: relative;
             width: 100%;
@@ -351,7 +370,6 @@
         .carousel-btn.prev { left: 8px; }
         .carousel-btn.next { right: 8px; }
 
-        /* ===== МУЗЫКА ===== */
         .music-btn {
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.04);
@@ -370,7 +388,6 @@
             transform: scale(1.02);
         }
 
-        /* ===== КОНФЕТТИ ===== */
         .confetti-btn {
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.04);
@@ -389,7 +406,6 @@
             transform: scale(1.02);
         }
 
-        /* ===== КОНФЕТТИ (элементы) ===== */
         .confetti-container {
             position: fixed;
             top: 0;
@@ -412,7 +428,6 @@
             100% { transform: translateY(110vh) rotate(720deg) scale(0.3); opacity: 0; }
         }
 
-        /* ===== ПОП-ЭФФЕКТ ===== */
         .pop-animation {
             position: fixed;
             pointer-events: none;
@@ -425,7 +440,6 @@
             100% { transform: scale(1.5); opacity: 0; }
         }
 
-        /* ===== АДАПТАЦИЯ ===== */
         @media (max-width: 550px) {
             .card {
                 padding: 22px 16px 28px;
@@ -444,6 +458,9 @@
             .counter-box .time {
                 font-size: 1.2rem;
             }
+            .timer-box .time {
+                font-size: 1rem;
+            }
             .entry-game button {
                 padding: 12px 30px;
                 font-size: 1.1rem;
@@ -459,17 +476,15 @@
 </head>
 <body>
 
-    <!-- ===== ШАРИКИ ===== -->
     <div class="balloons-deco" id="balloon1">🎈</div>
     <div class="balloons-deco" id="balloon2">🎈</div>
     <div class="balloons-deco" id="balloon3">🎈</div>
     <div class="balloons-deco" id="balloon4">🎈</div>
 
-    <!-- ===== КОНФЕТТИ ===== -->
     <div class="confetti-container" id="confettiContainer"></div>
 
     <!-- ============================================================ -->
-    <!-- ===== ЭКРАН ВХОДА ===== -->
+    <!-- ЭКРАН ВХОДА -->
     <!-- ============================================================ -->
     <div id="entryScreen">
         <h1>💕 Любишь ли ты меня?</h1>
@@ -482,7 +497,7 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- ===== ОСНОВНАЯ КАРТОЧКА ===== -->
+    <!-- ОСНОВНАЯ КАРТОЧКА -->
     <!-- ============================================================ -->
     <div class="card" id="mainCard">
 
@@ -500,11 +515,22 @@
             <div class="caption">🌟 наш особенный день</div>
         </div>
 
-        <!-- Счётчик дней вместе -->
+        <!-- Счётчик дней с 14 сентября 2025 -->
         <div class="counter-box">
             <div class="label">💕 дней вместе</div>
             <div class="time" id="daysCounter">
                 <span id="days">0</span> д
+            </div>
+        </div>
+
+        <!-- Таймер с 14 сентября 2025 -->
+        <div class="timer-box">
+            <div class="label">⏳ мы вместе</div>
+            <div class="time" id="timerDisplay">
+                <span id="timerDays">0</span>д
+                <span id="timerHours">0</span>ч
+                <span id="timerMinutes">0</span>м
+                <span id="timerSeconds">0</span>с
             </div>
         </div>
 
@@ -516,12 +542,19 @@
             Я люблю тебя ❤️
         </div>
 
-        <!-- Карусель -->
+        <!-- Карусель (10 фото) -->
         <div class="carousel-container">
             <div class="carousel-slides" id="carouselSlides">
                 <img src="photo1.jpg" alt="Фото 1">
                 <img src="photo2.jpg" alt="Фото 2">
                 <img src="photo3.jpg" alt="Фото 3">
+                <img src="photo4.jpg" alt="Фото 4">
+                <img src="photo5.jpg" alt="Фото 5">
+                <img src="photo6.jpg" alt="Фото 6">
+                <img src="photo7.jpg" alt="Фото 7">
+                <img src="photo8.jpg" alt="Фото 8">
+                <img src="photo9.jpg" alt="Фото 9">
+                <img src="photo10.jpg" alt="Фото 10">
             </div>
             <button class="carousel-btn prev" id="carouselPrev">‹</button>
             <button class="carousel-btn next" id="carouselNext">›</button>
@@ -536,7 +569,7 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- ===== СКРИПТЫ ===== -->
+    <!-- СКРИПТЫ -->
     <!-- ============================================================ -->
     <script>
         // ================================================================
@@ -615,10 +648,10 @@
         });
 
         // ================================================================
-        // 2. СЧЁТЧИК ДНЕЙ
+        // 2. СЧЁТЧИК ДНЕЙ (с 14 сентября 2025)
         // ================================================================
         function updateDays() {
-            const start = new Date('2023-10-16');
+            const start = new Date('2025-09-14');
             const now = new Date();
             const diff = Math.floor((now - start) / (1000 * 60 * 60 * 24));
             document.getElementById('days').textContent = diff > 0 ? diff : 0;
@@ -626,7 +659,31 @@
         updateDays();
 
         // ================================================================
-        // 3. ПИСЬМО
+        // 3. ТАЙМЕР (с 14 сентября 2025)
+        // ================================================================
+        function updateTimer() {
+            const start = new Date('2025-09-14T00:00:00');
+            const now = new Date();
+            let diff = Math.floor((now - start) / 1000);
+            if (diff < 0) diff = 0;
+
+            const days = Math.floor(diff / 86400);
+            diff -= days * 86400;
+            const hours = Math.floor(diff / 3600);
+            diff -= hours * 3600;
+            const minutes = Math.floor(diff / 60);
+            const seconds = diff % 60;
+
+            document.getElementById('timerDays').textContent = String(days).padStart(2, '0');
+            document.getElementById('timerHours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('timerMinutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('timerSeconds').textContent = String(seconds).padStart(2, '0');
+        }
+        updateTimer();
+        setInterval(updateTimer, 1000);
+
+        // ================================================================
+        // 4. ПИСЬМО
         // ================================================================
         const letterBtn = document.getElementById('letterBtn');
         const letterText = document.getElementById('letterText');
@@ -639,7 +696,7 @@
         });
 
         // ================================================================
-        // 4. КАРУСЕЛЬ
+        // 5. КАРУСЕЛЬ (10 фото)
         // ================================================================
         let currentSlide = 0;
         const slides = document.getElementById('carouselSlides');
@@ -656,10 +713,10 @@
         setInterval(() => {
             currentSlide = (currentSlide + 1) % totalSlides;
             slides.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
-        }, 4000);
+        }, 3500);
 
         // ================================================================
-        // 5. МУЗЫКА
+        // 6. МУЗЫКА
         // ================================================================
         const musicBtn = document.getElementById('musicBtn');
         let audio = null;
@@ -686,7 +743,7 @@
         });
 
         // ================================================================
-        // 6. КОНФЕТТИ
+        // 7. КОНФЕТТИ
         // ================================================================
         const confettiBtn = document.getElementById('confettiBtn');
         const confettiContainer = document.getElementById('confettiContainer');
@@ -717,7 +774,7 @@
         setTimeout(() => launchConfetti(15), 600);
 
         // ================================================================
-        // 7. ШАРИКИ ЛОПАЮТСЯ
+        // 8. ШАРИКИ ЛОПАЮТСЯ
         // ================================================================
         document.querySelectorAll('.balloons-deco').forEach(balloon => {
             balloon.addEventListener('click', function(e) {
@@ -741,7 +798,7 @@
         });
 
         // ================================================================
-        // ДОБАВЛЯЕМ АНИМАЦИЮ ДЛЯ КОНФЕТТИ
+        // АНИМАЦИЯ КОНФЕТТИ
         // ================================================================
         const style = document.createElement('style');
         style.textContent = `
@@ -752,7 +809,7 @@
                 `;
         document.head.appendChild(style);
 
-        console.log('💕 Сайт готов!');
+        console.log('💕 Сайт для первого клиента готов!');
     </script>
 
 </body>
