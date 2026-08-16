@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>💕 Наша история любви</title>
     <style>
+        /* ===== БАЗА ===== */
         * {
             margin: 0;
             padding: 0;
@@ -14,12 +15,12 @@
         body {
             min-height: 100vh;
             font-family: 'Georgia', 'Segoe UI', cursive;
+            padding: 30px 20px;
+            position: relative;
+            background: #49082c;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 30px 20px;
-            position: relative;
-            background: #fce4ec;
         }
 
         body::before {
@@ -33,10 +34,11 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            filter: brightness(0.35) blur(3px);
+            filter: brightness(0.45) blur(2px);
             z-index: 0;
         }
 
+        /* ===== ШАРИКИ ПО КРАЯМ ===== */
         .balloons-deco {
             position: fixed;
             font-size: 2.8rem;
@@ -58,13 +60,14 @@
             50% { transform: rotate(2deg) translateY(-6px); }
         }
 
+        /* ===== ЭКРАН ВХОДА ===== */
         #entryScreen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(252, 228, 236, 0.95);
+            background: rgba(73, 8, 44, 0.96);
             backdrop-filter: blur(20px);
             display: flex;
             flex-direction: column;
@@ -80,14 +83,14 @@
             pointer-events: none;
         }
         #entryScreen h1 {
-            color: #f06292;
+            color: #fc8198;
             font-size: 2.8rem;
             margin-bottom: 8px;
             font-family: 'Georgia', serif;
-            text-shadow: 0 0 30px rgba(240, 98, 146, 0.2);
+            text-shadow: 0 0 30px rgba(252, 129, 152, 0.2);
         }
         #entryScreen .sub {
-            color: #880e4f;
+            color: #9c7ab8;
             font-size: 1.2rem;
             margin-bottom: 25px;
             font-style: italic;
@@ -116,19 +119,19 @@
             box-shadow: 0 6px 30px rgba(0,0,0,0.08);
         }
         #entryYes {
-            background: linear-gradient(135deg, #f06292, #ec407a);
+            background: linear-gradient(135deg, #d44c84, #a75a99);
             color: #fff;
-            box-shadow: 0 6px 30px rgba(240, 98, 146, 0.3);
+            box-shadow: 0 6px 30px rgba(212, 76, 132, 0.3);
         }
         #entryNo {
-            background: #f8bbd0;
-            color: #4a1528;
+            background: #472738;
+            color: #fc8198;
             box-shadow: 0 6px 25px rgba(0,0,0,0.04);
         }
         #entryMessage {
             margin-top: 20px;
             font-size: 1.4rem;
-            color: #f06292;
+            color: #fc8198;
             min-height: 50px;
             font-family: 'Georgia', serif;
             opacity: 0;
@@ -138,37 +141,59 @@
             opacity: 1;
         }
 
-        .card {
-            max-width: 700px;
+        /* ===== ОСНОВНАЯ СЕТКА ===== */
+        .grid {
+            max-width: 1100px;
             width: 100%;
             position: relative;
             z-index: 1;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(16px);
-            border-radius: 50px 50px 40px 40px;
-            padding: 35px 30px 40px;
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
-            text-align: center;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s ease, transform 1s ease;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 10px;
         }
-        .card.show {
-            opacity: 1;
-            transform: translateY(0);
+
+        /* ===== БЛОКИ ===== */
+        .block {
+            background: rgba(167, 90, 153, 0.25);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 24px 20px 28px;
+            border: 2px solid rgba(156, 122, 184, 0.15);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            text-align: center;
+            color: #f0ecec;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            min-height: 200px;
+        }
+        .block:hover {
+            transform: scale(1.02);
+            border-color: rgba(252, 129, 152, 0.3);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+        }
+
+        /* ===== БЛОК 1 (главный) ===== */
+        .block-main {
+            grid-column: 1 / -1;
+            min-height: unset;
+            padding: 30px 25px 35px;
         }
 
         .title {
             font-size: 2.4rem;
             font-weight: bold;
             color: #fff;
-            text-shadow: 0 0 30px rgba(255,255,255,0.1);
+            text-shadow: 0 0 30px rgba(255,255,255,0.08);
             letter-spacing: 2px;
             line-height: 1.2;
         }
         .title .pink {
-            color: #f06292;
+            color: #fc8198;
         }
         .title .sparkle {
             display: inline-block;
@@ -188,27 +213,28 @@
             letter-spacing: 3px;
         }
         .name .heart {
-            color: #f06292;
+            color: #fc8198;
         }
 
         .subtitle {
-            color: #f8bbd0;
+            color: #9c7ab8;
             font-size: 1.1rem;
             margin: 4px 0 12px;
             font-style: italic;
         }
 
+        /* ===== ФОТО-ПОЛЯРОИД ===== */
         .polaroid {
-            background: rgba(255, 248, 240, 0.5);
+            background: rgba(255, 248, 240, 0.2);
             backdrop-filter: blur(4px);
             padding: 10px 10px 20px 10px;
             border-radius: 14px 14px 20px 20px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-            width: 180px;
-            margin: 12px auto 14px;
+            width: 160px;
+            margin: 8px auto 12px;
             transition: 0.3s;
             display: inline-block;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.04);
         }
         .polaroid img {
             width: 100%;
@@ -216,29 +242,30 @@
             object-fit: cover;
             border-radius: 8px;
             display: block;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.04);
         }
         .polaroid .caption {
             font-family: 'Georgia', cursive;
-            font-size: 0.65rem;
-            color: #4a1528;
+            font-size: 0.6rem;
+            color: #fc8198;
             margin-top: 6px;
             letter-spacing: 1px;
             font-style: italic;
-            opacity: 0.6;
+            opacity: 0.7;
         }
 
+        /* ===== СЧЁТЧИК ===== */
         .counter-box {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.04);
             border-radius: 20px;
             padding: 8px 16px;
-            margin: 6px auto 10px;
+            margin: 4px auto 8px;
             display: inline-block;
         }
         .counter-box .label {
-            font-size: 0.55rem;
-            color: #f8bbd0;
+            font-size: 0.5rem;
+            color: #9c7ab8;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             opacity: 0.6;
@@ -257,23 +284,24 @@
             margin: 0 2px;
         }
 
+        /* ===== ТАЙМЕР ===== */
         .timer-box {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.04);
             border-radius: 20px;
-            padding: 8px 16px;
-            margin: 6px auto 10px;
+            padding: 6px 14px;
+            margin: 4px auto 8px;
             display: inline-block;
         }
         .timer-box .label {
-            font-size: 0.55rem;
-            color: #f8bbd0;
+            font-size: 0.5rem;
+            color: #9c7ab8;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             opacity: 0.6;
         }
         .timer-box .time {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
             color: #fff;
             letter-spacing: 1px;
@@ -286,12 +314,13 @@
             margin: 0 2px;
         }
 
+        /* ===== ПИСЬМО ===== */
         .letter-btn {
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.04);
             border-radius: 40px;
             padding: 8px 24px;
-            color: #fff;
+            color: #fc8198;
             font-size: 0.85rem;
             cursor: pointer;
             transition: 0.3s;
@@ -306,14 +335,14 @@
 
         .letter-text {
             display: none;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255,255,255,0.04);
             border-radius: 16px;
             padding: 16px 18px;
             margin: 8px 0 12px;
             border: 1px solid rgba(255,255,255,0.04);
-            color: #fff;
+            color: #f0ecec;
             font-family: 'Georgia', serif;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             line-height: 1.6;
             text-align: left;
             font-style: italic;
@@ -328,11 +357,12 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
+        /* ===== КАРУСЕЛЬ ===== */
         .carousel-container {
             position: relative;
             width: 100%;
-            max-width: 400px;
-            margin: 12px auto;
+            max-width: 350px;
+            margin: 8px auto;
             overflow: hidden;
             border-radius: 20px;
             box-shadow: 0 8px 40px rgba(0,0,0,0.08);
@@ -352,7 +382,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255,255,255,0.3);
+            background: rgba(73, 8, 44, 0.4);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.04);
             color: #fff;
@@ -365,17 +395,18 @@
             font-family: 'Georgia', serif;
         }
         .carousel-btn:hover {
-            background: rgba(255,255,255,0.5);
+            background: rgba(73, 8, 44, 0.6);
         }
         .carousel-btn.prev { left: 8px; }
         .carousel-btn.next { right: 8px; }
 
+        /* ===== МУЗЫКА ===== */
         .music-btn {
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.04);
             border-radius: 40px;
             padding: 8px 24px;
-            color: #fff;
+            color: #fc8198;
             font-size: 0.85rem;
             cursor: pointer;
             transition: 0.3s;
@@ -388,12 +419,13 @@
             transform: scale(1.02);
         }
 
+        /* ===== КОНФЕТТИ ===== */
         .confetti-btn {
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.04);
             border-radius: 40px;
             padding: 6px 20px;
-            color: #fff;
+            color: #fc8198;
             font-size: 0.8rem;
             cursor: pointer;
             transition: 0.3s;
@@ -406,6 +438,7 @@
             transform: scale(1.02);
         }
 
+        /* ===== КОНФЕТТИ ===== */
         .confetti-container {
             position: fixed;
             top: 0;
@@ -428,6 +461,7 @@
             100% { transform: translateY(110vh) rotate(720deg) scale(0.3); opacity: 0; }
         }
 
+        /* ===== ПОП-ЭФФЕКТ ===== */
         .pop-animation {
             position: fixed;
             pointer-events: none;
@@ -440,10 +474,27 @@
             100% { transform: scale(1.5); opacity: 0; }
         }
 
-        @media (max-width: 550px) {
-            .card {
-                padding: 22px 16px 28px;
-                border-radius: 35px;
+        /* ===== АДАПТАЦИЯ ===== */
+        @media (max-width: 750px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .block-main {
+                grid-column: 1 / -1;
+            }
+        }
+        @media (max-width: 500px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .block-main {
+                grid-column: 1;
+            }
+            .block {
+                padding: 18px 14px 22px;
+                border-radius: 22px;
             }
             .title {
                 font-size: 1.8rem;
@@ -452,7 +503,7 @@
                 font-size: 1.4rem;
             }
             .polaroid {
-                width: 140px;
+                width: 130px;
                 padding: 8px 8px 16px 8px;
             }
             .counter-box .time {
@@ -476,11 +527,13 @@
 </head>
 <body>
 
+    <!-- ===== ШАРИКИ ===== -->
     <div class="balloons-deco" id="balloon1">🎈</div>
     <div class="balloons-deco" id="balloon2">🎈</div>
     <div class="balloons-deco" id="balloon3">🎈</div>
     <div class="balloons-deco" id="balloon4">🎈</div>
 
+    <!-- ===== КОНФЕТТИ ===== -->
     <div class="confetti-container" id="confettiContainer"></div>
 
     <!-- ============================================================ -->
@@ -497,74 +550,110 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- ОСНОВНАЯ КАРТОЧКА -->
+    <!-- ОСНОВНАЯ СЕТКА -->
     <!-- ============================================================ -->
-    <div class="card" id="mainCard">
+    <div class="grid" id="mainGrid">
 
-        <div class="title">
-            <span class="sparkle">✨</span> С ДНЁМ <span class="pink">ЛЮБВИ</span> <span class="sparkle">✨</span>
-        </div>
-        <div class="name">
-            <span class="heart">💗</span> ИМЯ <span class="heart">💗</span>
-        </div>
-        <div class="subtitle">✦ история, которая пишется каждый день ✦</div>
+        <!-- ===== БЛОК 1 (главный) ===== -->
+        <div class="block block-main">
+            <div class="title">
+                <span class="sparkle">✨</span> С ДНЁМ <span class="pink">ЛЮБВИ</span> <span class="sparkle">✨</span>
+            </div>
+            <div class="name">
+                <span class="heart">💗</span> ИМЯ <span class="heart">💗</span>
+            </div>
+            <div class="subtitle">✦ история, которая пишется каждый день ✦</div>
 
-        <!-- Фото-поляроид -->
-        <div class="polaroid">
-            <img src="photo.jpg" alt="Фото">
-            <div class="caption">🌟 наш особенный день</div>
-        </div>
+            <div class="polaroid">
+                <img src="photo (1).jpg" alt="Фото">
+                <div class="caption">🌟 наш особенный день</div>
+            </div>
 
-        <!-- Счётчик дней с 14 сентября 2025 -->
-        <div class="counter-box">
-            <div class="label">💕 дней вместе</div>
-            <div class="time" id="daysCounter">
-                <span id="days">0</span> д
+            <div class="counter-box">
+                <div class="label">💕 дней вместе</div>
+                <div class="time" id="daysCounter">
+                    <span id="days">0</span> д
+                </div>
+            </div>
+
+            <div class="timer-box">
+                <div class="label">⏳ мы вместе</div>
+                <div class="time" id="timerDisplay">
+                    <span id="timerDays">0</span>д
+                    <span id="timerHours">0</span>ч
+                    <span id="timerMinutes">0</span>м
+                    <span id="timerSeconds">0</span>с
+                </div>
+            </div>
+
+            <button class="letter-btn" id="letterBtn">💌 Открыть письмо</button>
+            <div class="letter-text" id="letterText">
+                💕 Ты — моё вдохновение, моя радость и мой самый любимый человек.<br><br>
+                Спасибо, что ты есть. Каждый день с тобой — как маленькое чудо.<br><br>
+                Я люблю тебя ❤️
             </div>
         </div>
 
-        <!-- Таймер с 14 сентября 2025 -->
-        <div class="timer-box">
-            <div class="label">⏳ мы вместе</div>
-            <div class="time" id="timerDisplay">
-                <span id="timerDays">0</span>д
-                <span id="timerHours">0</span>ч
-                <span id="timerMinutes">0</span>м
-                <span id="timerSeconds">0</span>с
+        <!-- ===== БЛОК 2: КАРУСЕЛЬ ===== -->
+        <div class="block" style="grid-column: span 2;">
+            <div style="color: #fc8198; font-size: 1rem; font-weight: bold; margin-bottom: 6px; letter-spacing: 1px;">
+                📸 Наши моменты
+            </div>
+            <div class="carousel-container">
+                <div class="carousel-slides" id="carouselSlides">
+                    <img src="photo (1).jpg" alt="Фото 1">
+                    <img src="photo (2).jpg" alt="Фото 2">
+                    <img src="photo (3).jpg" alt="Фото 3">
+                    <img src="photo (4).jpg" alt="Фото 4">
+                    <img src="photo (5).jpg" alt="Фото 5">
+                    <img src="photo (6).jpg" alt="Фото 6">
+                    <img src="photo (7).jpg" alt="Фото 7">
+                    <img src="photo (8).jpg" alt="Фото 8">
+                    <img src="photo (9).jpg" alt="Фото 9">
+                </div>
+                <button class="carousel-btn prev" id="carouselPrev">‹</button>
+                <button class="carousel-btn next" id="carouselNext">›</button>
             </div>
         </div>
 
-        <!-- Письмо -->
-        <button class="letter-btn" id="letterBtn">💌 Открыть письмо</button>
-        <div class="letter-text" id="letterText">
-            💕 Ты — моё вдохновение, моя радость и мой самый любимый человек.<br><br>
-            Спасибо, что ты есть. Каждый день с тобой — как маленькое чудо.<br><br>
-            Я люблю тебя ❤️
-        </div>
-
-        <!-- Карусель (10 фото) -->
-        <div class="carousel-container">
-            <div class="carousel-slides" id="carouselSlides">
-                <img src="photo1.jpg" alt="Фото 1">
-                <img src="photo2.jpg" alt="Фото 2">
-                <img src="photo3.jpg" alt="Фото 3">
-                <img src="photo4.jpg" alt="Фото 4">
-                <img src="photo5.jpg" alt="Фото 5">
-                <img src="photo6.jpg" alt="Фото 6">
-                <img src="photo7.jpg" alt="Фото 7">
-                <img src="photo8.jpg" alt="Фото 8">
-                <img src="photo9.jpg" alt="Фото 9">
-                <img src="photo10.jpg" alt="Фото 10">
+        <!-- ===== БЛОК 3: МУЗЫКА ===== -->
+        <div class="block">
+            <div style="color: #fc8198; font-size: 1rem; font-weight: bold; margin-bottom: 6px; letter-spacing: 1px;">
+                🎵 Наша музыка
             </div>
-            <button class="carousel-btn prev" id="carouselPrev">‹</button>
-            <button class="carousel-btn next" id="carouselNext">›</button>
+            <button class="music-btn" id="musicBtn">🎵 Включить музыку</button>
         </div>
 
-        <!-- Музыка -->
-        <button class="music-btn" id="musicBtn">🎵 Включить музыку</button>
+        <!-- ===== БЛОК 4: САЛЮТ ===== -->
+        <div class="block">
+            <div style="color: #fc8198; font-size: 1rem; font-weight: bold; margin-bottom: 6px; letter-spacing: 1px;">
+                🎉 Праздник
+            </div>
+            <button class="confetti-btn" id="confettiBtn">🎉 Запустить салют</button>
+        </div>
 
-        <!-- Конфетти -->
-        <button class="confetti-btn" id="confettiBtn">🎉 Запустить салют</button>
+        <!-- ===== БЛОК 5: ЛОПАНИ ШАРИК ===== -->
+        <div class="block">
+            <div style="color: #fc8198; font-size: 1rem; font-weight: bold; margin-bottom: 6px; letter-spacing: 1px;">
+                🎈 Лопни шарик
+            </div>
+            <div style="display: flex; gap: 12px; justify-content: center; font-size: 2.2rem;">
+                <span class="balloon-click" onclick="popBalloonClick(this)">🎈</span>
+                <span class="balloon-click" onclick="popBalloonClick(this)">🎈</span>
+                <span class="balloon-click" onclick="popBalloonClick(this)">🎈</span>
+            </div>
+        </div>
+
+        <!-- ===== БЛОК 6: ЦИТАТА ===== -->
+        <div class="block">
+            <div style="color: #fc8198; font-size: 1rem; font-weight: bold; margin-bottom: 6px; letter-spacing: 1px;">
+                💭 Цитата дня
+            </div>
+            <div style="font-size: 0.9rem; font-style: italic; color: #9c7ab8; line-height: 1.5;" id="quoteDisplay">
+                «Любовь — это когда два человека смотрят в одном направлении»
+            </div>
+            <button onclick="newQuote()" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.04);border-radius:30px;padding:4px 16px;color:#fc8198;font-size:0.7rem;cursor:pointer;font-family:'Georgia',serif;margin-top:6px;">🔄 Новая цитата</button>
+        </div>
 
     </div>
 
@@ -579,7 +668,7 @@
         const entryNo = document.getElementById('entryNo');
         const entryMessage = document.getElementById('entryMessage');
         const entryScreen = document.getElementById('entryScreen');
-        const mainCard = document.getElementById('mainCard');
+        const mainGrid = document.getElementById('mainGrid');
 
         let entryAttempts = 0;
         let gameWon = false;
@@ -611,7 +700,7 @@
                 this.style.left = 'auto';
                 this.style.top = 'auto';
                 this.textContent = '💕 Ну ладно, ДА!';
-                this.style.background = 'linear-gradient(135deg, #f06292, #ec407a)';
+                this.style.background = 'linear-gradient(135deg, #d44c84, #a75a99)';
                 this.style.transform = 'scale(1.15)';
                 entryMessage.textContent = '💕 Я ТЕБЯ ТОЖЕ ЛЮБЛЮ!!! 💕';
                 entryMessage.classList.add('show');
@@ -619,7 +708,7 @@
                 entryNo.style.cursor = 'default';
                 setTimeout(() => {
                     entryScreen.classList.add('hidden');
-                    mainCard.classList.add('show');
+                    mainGrid.style.display = 'grid';
                     launchConfetti(30);
                 }, 1200);
             }
@@ -642,7 +731,7 @@
             entryNo.style.cursor = 'default';
             setTimeout(() => {
                 entryScreen.classList.add('hidden');
-                mainCard.classList.add('show');
+                mainGrid.style.display = 'grid';
                 launchConfetti(30);
             }, 1200);
         });
@@ -696,7 +785,7 @@
         });
 
         // ================================================================
-        // 5. КАРУСЕЛЬ (10 фото)
+        // 5. КАРУСЕЛЬ
         // ================================================================
         let currentSlide = 0;
         const slides = document.getElementById('carouselSlides');
@@ -758,59 +847,3 @@
                 el.style.fontSize = (Math.random() * 24 + 16) + 'px';
                 el.style.animationDuration = (Math.random() * 2.5 + 2) + 's';
                 el.style.animationDelay = (Math.random() * 1.2) + 's';
-                confettiContainer.appendChild(el);
-                setTimeout(() => el.remove(), 4500);
-            }
-        }
-
-        confettiBtn.addEventListener('click', function() {
-            launchConfetti(50);
-            this.textContent = '🎉 Салют!';
-            setTimeout(() => {
-                this.textContent = '🎉 Запустить салют';
-            }, 1500);
-        });
-
-        setTimeout(() => launchConfetti(15), 600);
-
-        // ================================================================
-        // 8. ШАРИКИ ЛОПАЮТСЯ
-        // ================================================================
-        document.querySelectorAll('.balloons-deco').forEach(balloon => {
-            balloon.addEventListener('click', function(e) {
-                const pop = document.createElement('div');
-                pop.className = 'pop-animation';
-                pop.textContent = '💥';
-                pop.style.left = (e.clientX - 30) + 'px';
-                pop.style.top = (e.clientY - 30) + 'px';
-                document.body.appendChild(pop);
-                setTimeout(() => pop.remove(), 600);
-
-                this.textContent = '💫';
-                this.style.opacity = '0.2';
-                this.style.pointerEvents = 'none';
-                setTimeout(() => {
-                    this.textContent = '🎈';
-                    this.style.opacity = '0.5';
-                    this.style.pointerEvents = 'auto';
-                }, 2000);
-            });
-        });
-
-        // ================================================================
-        // АНИМАЦИЯ КОНФЕТТИ
-        // ================================================================
-        const style = document.createElement('style');
-        style.textContent = `
-                    @keyframes confettiFall {
-                        0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
-                        100% { transform: translateY(120vh) rotate(720deg); opacity: 0; }
-                    }
-                `;
-        document.head.appendChild(style);
-
-        console.log('💕 Сайт для первого клиента готов!');
-    </script>
-
-</body>
-</html>
