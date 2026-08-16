@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>💕 Наша история любви</title>
     <style>
-        /* ===== БАЗА ===== */
         * {
             margin: 0;
             padding: 0;
@@ -17,10 +16,11 @@
             font-family: 'Georgia', 'Segoe UI', cursive;
             padding: 30px 20px;
             position: relative;
-            background: #49082c;
+            background: #f5edf0;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
         }
 
         body::before {
@@ -34,18 +34,18 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            filter: brightness(0.45) blur(2px);
+            filter: brightness(0.65) blur(2px);
             z-index: 0;
         }
 
-        /* ===== ШАРИКИ ===== */
+        /* ===== ШАРИКИ ПО КРАЯМ ===== */
         .balloons-deco {
             position: fixed;
             font-size: 2.8rem;
             z-index: 0;
             pointer-events: auto;
             cursor: pointer;
-            opacity: 0.5;
+            opacity: 0.4;
             animation: sway 4s ease-in-out infinite;
             transition: 0.3s;
             user-select: none;
@@ -67,7 +67,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(73, 8, 44, 0.96);
+            background: rgba(245, 237, 240, 0.95);
             backdrop-filter: blur(20px);
             display: flex;
             flex-direction: column;
@@ -83,11 +83,11 @@
             pointer-events: none;
         }
         #entryScreen h1 {
-            color: #fc8198;
+            color: #008bd0;
             font-size: 2.8rem;
             margin-bottom: 8px;
             font-family: 'Georgia', serif;
-            text-shadow: 0 0 30px rgba(252, 129, 152, 0.2);
+            text-shadow: 0 0 30px rgba(0, 139, 208, 0.15);
         }
         .entry-game {
             display: flex;
@@ -110,22 +110,22 @@
             transition: all 0.15s ease;
             position: relative;
             z-index: 10;
-            box-shadow: 0 6px 30px rgba(0,0,0,0.08);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.06);
         }
         #entryYes {
-            background: linear-gradient(135deg, #d44c84, #a75a99);
+            background: linear-gradient(135deg, #9a99e1, #008bd0);
             color: #fff;
-            box-shadow: 0 6px 30px rgba(212, 76, 132, 0.3);
+            box-shadow: 0 6px 30px rgba(0, 139, 208, 0.2);
         }
         #entryNo {
-            background: #472738;
-            color: #fc8198;
+            background: #dcbddf;
+            color: #4a2a4a;
             box-shadow: 0 6px 25px rgba(0,0,0,0.04);
         }
         #entryMessage {
             margin-top: 20px;
             font-size: 1.4rem;
-            color: #fc8198;
+            color: #008bd0;
             min-height: 50px;
             font-family: 'Georgia', serif;
             opacity: 0;
@@ -137,56 +137,79 @@
 
         /* ===== ОСНОВНАЯ СЕТКА ===== */
         .grid {
-            max-width: 1100px;
+            max-width: 1000px;
             width: 100%;
             position: relative;
             z-index: 1;
             display: none;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 18px;
             padding: 10px;
         }
 
-        /* ===== БЛОКИ ===== */
+        /* ===== БЛОКИ С КРАСИВОЙ ОБВОДКОЙ ===== */
         .block {
-            background: rgba(167, 90, 153, 0.25);
+            background: rgba(245, 237, 240, 0.25);
             backdrop-filter: blur(12px);
-            border-radius: 28px;
-            padding: 24px 20px 28px;
-            border: 2px solid rgba(156, 122, 184, 0.15);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
+            border-radius: 24px;
+            padding: 18px 16px 22px;
+            border: 2px solid rgba(220, 189, 223, 0.3);
+            box-shadow: 
+                0 4px 20px rgba(154, 153, 225, 0.08),
+                inset 0 0 30px rgba(154, 153, 225, 0.03);
+            transition: all 0.4s ease;
             text-align: center;
-            color: #f0ecec;
+            color: #2a1a2a;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             gap: 6px;
-            min-height: 200px;
+            min-height: 180px;
+            position: relative;
+        }
+        .block::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 26px;
+            background: linear-gradient(135deg, 
+                rgba(154, 153, 225, 0.15), 
+                rgba(0, 139, 208, 0.05), 
+                rgba(220, 189, 223, 0.15)
+            );
+            z-index: -1;
+            opacity: 0.5;
+            transition: 0.4s;
         }
         .block:hover {
             transform: scale(1.02);
-            border-color: rgba(252, 129, 152, 0.3);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+            border-color: rgba(154, 153, 225, 0.5);
+            box-shadow: 0 8px 30px rgba(154, 153, 225, 0.15);
+        }
+        .block:hover::after {
+            opacity: 1;
         }
 
         .block-main {
             grid-column: 1 / -1;
             min-height: unset;
-            padding: 30px 25px 35px;
+            padding: 24px 20px 28px;
         }
 
         .title {
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: bold;
-            color: #fff;
-            text-shadow: 0 0 30px rgba(255,255,255,0.08);
+            color: #2a1a2a;
+            text-shadow: 0 0 30px rgba(0, 139, 208, 0.05);
             letter-spacing: 2px;
             line-height: 1.2;
         }
         .title .pink {
-            color: #fc8198;
+            color: #008bd0;
         }
         .title .sparkle {
             display: inline-block;
@@ -198,80 +221,94 @@
         }
 
         .name {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: bold;
-            color: #fff;
-            text-shadow: 0 0 20px rgba(255,255,255,0.08);
+            color: #2a1a2a;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.02);
             margin: 2px 0 6px;
             letter-spacing: 3px;
         }
         .name .heart {
-            color: #fc8198;
+            color: #008bd0;
         }
 
         .subtitle {
-            color: #9c7ab8;
-            font-size: 1.1rem;
+            color: #4a3a4a;
+            font-size: 1rem;
             margin: 4px 0 12px;
             font-style: italic;
+            opacity: 0.7;
         }
 
-        /* ===== ФОТО-ПОЛЯРОИД ===== */
+        /* ===== ПОЛЯРОИДЫ ===== */
+        .polaroid-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 400px;
+            margin: 8px auto;
+        }
         .polaroid {
-            background: rgba(255, 248, 240, 0.2);
+            background: rgba(255, 248, 240, 0.3);
             backdrop-filter: blur(4px);
-            padding: 10px 10px 20px 10px;
-            border-radius: 14px 14px 20px 20px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-            width: 160px;
-            margin: 8px auto 12px;
+            padding: 8px 8px 14px 8px;
+            border-radius: 10px 10px 16px 16px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
             transition: 0.3s;
-            display: inline-block;
             border: 1px solid rgba(255,255,255,0.04);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .polaroid:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
         }
         .polaroid img {
             width: 100%;
             aspect-ratio: 1 / 1;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 6px;
             display: block;
             border: 1px solid rgba(255,255,255,0.04);
         }
         .polaroid .caption {
             font-family: 'Georgia', cursive;
-            font-size: 0.6rem;
-            color: #fc8198;
-            margin-top: 6px;
-            letter-spacing: 1px;
+            font-size: 0.5rem;
+            color: #4a3a4a;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
             font-style: italic;
-            opacity: 0.7;
+            opacity: 0.5;
         }
 
         /* ===== СЧЁТЧИК ===== */
         .counter-box {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.04);
+            background: rgba(245, 237, 240, 0.15);
+            border: 1px solid rgba(154, 153, 225, 0.1);
             border-radius: 20px;
-            padding: 8px 16px;
-            margin: 4px auto 8px;
+            padding: 6px 16px;
+            margin: 4px auto 6px;
             display: inline-block;
+            backdrop-filter: blur(4px);
         }
         .counter-box .label {
             font-size: 0.5rem;
-            color: #9c7ab8;
+            color: #4a3a4a;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             opacity: 0.6;
         }
         .counter-box .time {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: bold;
-            color: #fff;
+            color: #2a1a2a;
             letter-spacing: 2px;
             font-family: 'Georgia', serif;
         }
         .counter-box .time span {
-            background: rgba(255,255,255,0.04);
+            background: rgba(154, 153, 225, 0.05);
             padding: 2px 10px;
             border-radius: 10px;
             margin: 0 2px;
@@ -279,29 +316,30 @@
 
         /* ===== ТАЙМЕР ===== */
         .timer-box {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.04);
+            background: rgba(245, 237, 240, 0.15);
+            border: 1px solid rgba(154, 153, 225, 0.1);
             border-radius: 20px;
             padding: 6px 14px;
-            margin: 4px auto 8px;
+            margin: 4px auto 6px;
             display: inline-block;
+            backdrop-filter: blur(4px);
         }
         .timer-box .label {
             font-size: 0.5rem;
-            color: #9c7ab8;
+            color: #4a3a4a;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             opacity: 0.6;
         }
         .timer-box .time {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
-            color: #fff;
+            color: #2a1a2a;
             letter-spacing: 1px;
             font-family: 'Georgia', serif;
         }
         .timer-box .time span {
-            background: rgba(255,255,255,0.04);
+            background: rgba(154, 153, 225, 0.05);
             padding: 2px 8px;
             border-radius: 8px;
             margin: 0 2px;
@@ -309,37 +347,39 @@
 
         /* ===== ПИСЬМО ===== */
         .letter-btn {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.04);
+            background: rgba(245, 237, 240, 0.15);
+            border: 1px solid rgba(154, 153, 225, 0.1);
             border-radius: 40px;
-            padding: 8px 24px;
-            color: #fc8198;
-            font-size: 0.85rem;
+            padding: 6px 20px;
+            color: #2a1a2a;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: 0.3s;
             font-family: 'Georgia', serif;
             margin: 4px 0;
             display: inline-block;
+            backdrop-filter: blur(4px);
         }
         .letter-btn:hover {
-            background: rgba(255,255,255,0.08);
+            background: rgba(245, 237, 240, 0.25);
             transform: scale(1.02);
         }
 
         .letter-text {
             display: none;
-            background: rgba(255,255,255,0.04);
+            background: rgba(245, 237, 240, 0.15);
             border-radius: 16px;
-            padding: 16px 18px;
-            margin: 8px 0 12px;
-            border: 1px solid rgba(255,255,255,0.04);
-            color: #f0ecec;
+            padding: 14px 16px;
+            margin: 6px 0 10px;
+            border: 1px solid rgba(154, 153, 225, 0.05);
+            color: #2a1a2a;
             font-family: 'Georgia', serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             line-height: 1.6;
             text-align: left;
             font-style: italic;
             opacity: 0.8;
+            backdrop-filter: blur(4px);
         }
         .letter-text.show {
             display: block;
@@ -354,11 +394,11 @@
         .carousel-container {
             position: relative;
             width: 100%;
-            max-width: 350px;
-            margin: 8px auto;
+            max-width: 320px;
+            margin: 6px auto;
             overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
         }
         .carousel-slides {
             display: flex;
@@ -375,12 +415,12 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(73, 8, 44, 0.4);
+            background: rgba(245, 237, 240, 0.4);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.04);
-            color: #fff;
-            font-size: 2rem;
-            padding: 4px 14px;
+            color: #2a1a2a;
+            font-size: 1.8rem;
+            padding: 4px 12px;
             cursor: pointer;
             border-radius: 50%;
             transition: 0.3s;
@@ -388,50 +428,51 @@
             font-family: 'Georgia', serif;
         }
         .carousel-btn:hover {
-            background: rgba(73, 8, 44, 0.6);
+            background: rgba(245, 237, 240, 0.6);
         }
-        .carousel-btn.prev { left: 8px; }
-        .carousel-btn.next { right: 8px; }
+        .carousel-btn.prev { left: 6px; }
+        .carousel-btn.next { right: 6px; }
 
         /* ===== МУЗЫКА ===== */
         .music-btn {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.04);
-            border-radius: 40px;
-            padding: 8px 24px;
-            color: #fc8198;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: 'Georgia', serif;
-            margin: 4px 0;
-            display: inline-block;
-        }
-        .music-btn:hover {
-            background: rgba(255,255,255,0.08);
-            transform: scale(1.02);
-        }
-
-        /* ===== КОНФЕТТИ ===== */
-        .confetti-btn {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.04);
+            background: rgba(245, 237, 240, 0.15);
+            border: 1px solid rgba(154, 153, 225, 0.1);
             border-radius: 40px;
             padding: 6px 20px;
-            color: #fc8198;
+            color: #2a1a2a;
             font-size: 0.8rem;
             cursor: pointer;
             transition: 0.3s;
             font-family: 'Georgia', serif;
             margin: 4px 0;
             display: inline-block;
+            backdrop-filter: blur(4px);
         }
-        .confetti-btn:hover {
-            background: rgba(255,255,255,0.08);
+        .music-btn:hover {
+            background: rgba(245, 237, 240, 0.25);
             transform: scale(1.02);
         }
 
         /* ===== КОНФЕТТИ ===== */
+        .confetti-btn {
+            background: rgba(245, 237, 240, 0.15);
+            border: 1px solid rgba(154, 153, 225, 0.1);
+            border-radius: 40px;
+            padding: 6px 20px;
+            color: #2a1a2a;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Georgia', serif;
+            margin: 4px 0;
+            display: inline-block;
+            backdrop-filter: blur(4px);
+        }
+        .confetti-btn:hover {
+            background: rgba(245, 237, 240, 0.25);
+            transform: scale(1.02);
+        }
+
         .confetti-container {
             position: fixed;
             top: 0;
@@ -444,7 +485,7 @@
         }
         .confetti-piece {
             position: absolute;
-            font-size: 24px;
+            font-size: 22px;
             animation: confettiFall linear forwards;
             opacity: 0.8;
             user-select: none;
@@ -454,7 +495,6 @@
             100% { transform: translateY(110vh) rotate(720deg) scale(0.3); opacity: 0; }
         }
 
-        /* ===== ПОП-ЭФФЕКТ ===== */
         .pop-animation {
             position: fixed;
             pointer-events: none;
@@ -467,11 +507,11 @@
             100% { transform: scale(1.5); opacity: 0; }
         }
 
-        /* ===== ЛОПНИ ШАРИК ===== */
         .balloon-click {
             cursor: pointer;
             transition: 0.3s;
             user-select: none;
+            font-size: 2rem;
         }
         .balloon-click:hover {
             transform: scale(1.1);
@@ -486,39 +526,44 @@
         @media (max-width: 750px) {
             .grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
+                gap: 14px;
             }
             .block-main {
                 grid-column: 1 / -1;
+            }
+            .polaroid-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 300px;
             }
         }
         @media (max-width: 500px) {
             .grid {
                 grid-template-columns: 1fr;
-                gap: 14px;
+                gap: 12px;
             }
             .block-main {
                 grid-column: 1;
             }
             .block {
-                padding: 18px 14px 22px;
-                border-radius: 22px;
+                padding: 14px 12px 18px;
+                min-height: 150px;
+                border-radius: 20px;
             }
             .title {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
             .name {
-                font-size: 1.4rem;
-            }
-            .polaroid {
-                width: 130px;
-                padding: 8px 8px 16px 8px;
-            }
-            .counter-box .time {
                 font-size: 1.2rem;
             }
+            .polaroid-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 250px;
+            }
+            .counter-box .time {
+                font-size: 1.1rem;
+            }
             .timer-box .time {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
             .entry-game button {
                 padding: 12px 30px;
@@ -529,6 +574,9 @@
             }
             .balloons-deco {
                 font-size: 2rem;
+            }
+            .carousel-container {
+                max-width: 260px;
             }
         }
     </style>
@@ -571,9 +619,20 @@
             </div>
             <div class="subtitle">✦ история, которая пишется каждый день ✦</div>
 
-            <div class="polaroid">
-                <img src="photo (1).jpg" alt="Фото">
-                <div class="caption">🌟 наш особенный день</div>
+            <!-- Фото в поляроидах (3 фото) -->
+            <div class="polaroid-grid">
+                <div class="polaroid">
+                    <img src="photo (1).jpg" alt="Фото 1">
+                    <div class="caption">💕 наш день</div>
+                </div>
+                <div class="polaroid">
+                    <img src="photo (2).jpg" alt="Фото 2">
+                    <div class="caption">🌸 счастье</div>
+                </div>
+                <div class="polaroid">
+                    <img src="photo (3).jpg" alt="Фото 3">
+                    <div class="caption">✨ любовь</div>
+                </div>
             </div>
 
             <div class="counter-box">
@@ -603,14 +662,11 @@
 
         <!-- ===== БЛОК 2: КАРУСЕЛЬ ===== -->
         <div class="block" style="grid-column: span 2;">
-            <div style="color: #fc8198; font-size: 1rem; font-weight: bold; margin-bottom: 6px; letter-spacing: 1px;">
+            <div style="color: #008bd0; font-size: 0.95rem; font-weight: bold; margin-bottom: 4px; letter-spacing: 1px;">
                 📸 Наши моменты
             </div>
             <div class="carousel-container">
                 <div class="carousel-slides" id="carouselSlides">
-                    <img src="photo (1).jpg" alt="Фото 1">
-                    <img src="photo (2).jpg" alt="Фото 2">
-                    <img src="photo (3).jpg" alt="Фото 3">
                     <img src="photo (4).jpg" alt="Фото 4">
                     <img src="photo (5).jpg" alt="Фото 5">
                     <img src="photo (6).jpg" alt="Фото 6">
@@ -625,7 +681,7 @@
 
         <!-- ===== БЛОК 3: МУЗЫКА ===== -->
         <div class="block">
-            <div style="color: #fc8198; font-size: 1rem; font-weight: bold; margin-bottom: 6px; letter-spacing: 1px;">
+            <div style="color: #008bd0; font-size: 0.95rem; font-weight: bold; margin-bottom: 4px; letter-spacing: 1px;">
                 🎵 Наша музыка
             </div>
             <button class="music-btn" id="musicBtn">🎵 Включить музыку</button>
@@ -633,7 +689,7 @@
 
         <!-- ===== БЛОК 4: САЛЮТ ===== -->
         <div class="block">
-            <div style="color: #fc8198; font-size: 1rem; font-weight: bold; margin-bottom: 6px; letter-spacing: 1px;">
+            <div style="color: #008bd0; font-size: 0.95rem; font-weight: bold; margin-bottom: 4px; letter-spacing: 1px;">
                 🎉 Праздник
             </div>
             <button class="confetti-btn" id="confettiBtn">🎉 Запустить салют</button>
@@ -641,10 +697,10 @@
 
         <!-- ===== БЛОК 5: ЛОПНИ ШАРИК ===== -->
         <div class="block">
-            <div style="color: #fc8198; font-size: 1rem; font-weight: bold; margin-bottom: 6px; letter-spacing: 1px;">
+            <div style="color: #008bd0; font-size: 0.95rem; font-weight: bold; margin-bottom: 4px; letter-spacing: 1px;">
                 🎈 Лопни шарик
             </div>
-            <div style="display: flex; gap: 12px; justify-content: center; font-size: 2.2rem;">
+            <div style="display: flex; gap: 12px; justify-content: center;">
                 <span class="balloon-click" onclick="popBalloonClick(this)">🎈</span>
                 <span class="balloon-click" onclick="popBalloonClick(this)">🎈</span>
                 <span class="balloon-click" onclick="popBalloonClick(this)">🎈</span>
@@ -653,13 +709,13 @@
 
         <!-- ===== БЛОК 6: ЦИТАТА ===== -->
         <div class="block">
-            <div style="color: #fc8198; font-size: 1rem; font-weight: bold; margin-bottom: 6px; letter-spacing: 1px;">
+            <div style="color: #008bd0; font-size: 0.95rem; font-weight: bold; margin-bottom: 4px; letter-spacing: 1px;">
                 💭 Цитата дня
             </div>
-            <div style="font-size: 0.9rem; font-style: italic; color: #9c7ab8; line-height: 1.5;" id="quoteDisplay">
+            <div style="font-size: 0.85rem; font-style: italic; color: #4a3a4a; line-height: 1.5;" id="quoteDisplay">
                 «Любовь — это когда два человека смотрят в одном направлении»
             </div>
-            <button onclick="newQuote()" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.04);border-radius:30px;padding:4px 16px;color:#fc8198;font-size:0.7rem;cursor:pointer;font-family:'Georgia',serif;margin-top:6px;">🔄 Новая цитата</button>
+            <button onclick="newQuote()" style="background:rgba(245,237,240,0.15);border:1px solid rgba(154,153,225,0.08);border-radius:30px;padding:3px 14px;color:#4a3a4a;font-size:0.65rem;cursor:pointer;font-family:'Georgia',serif;margin-top:4px;backdrop-filter:blur(4px);">🔄 Новая цитата</button>
         </div>
 
     </div>
@@ -669,7 +725,7 @@
     <!-- ============================================================ -->
     <script>
         // ================================================================
-        // 1. ЭКРАН ВХОДА (ИСПРАВЛЕН)
+        // 1. ЭКРАН ВХОДА
         // ================================================================
         const entryYes = document.getElementById('entryYes');
         const entryNo = document.getElementById('entryNo');
@@ -707,7 +763,7 @@
                 this.style.left = 'auto';
                 this.style.top = 'auto';
                 this.textContent = '💕 Ну ладно, ДА!';
-                this.style.background = 'linear-gradient(135deg, #d44c84, #a75a99)';
+                this.style.background = 'linear-gradient(135deg, #9a99e1, #008bd0)';
                 this.style.transform = 'scale(1.15)';
                 entryMessage.textContent = '💕 Я ТЕБЯ ТОЖЕ ЛЮБЛЮ!!! 💕';
                 entryMessage.classList.add('show');
@@ -716,7 +772,7 @@
                 setTimeout(() => {
                     entryScreen.classList.add('hidden');
                     mainGrid.style.display = 'grid';
-                    launchConfetti(30);
+                    launchConfetti(25);
                 }, 1200);
             }
         });
@@ -739,7 +795,7 @@
             setTimeout(() => {
                 entryScreen.classList.add('hidden');
                 mainGrid.style.display = 'grid';
-                launchConfetti(30);
+                launchConfetti(25);
             }, 1200);
         });
 
@@ -845,13 +901,13 @@
         const confettiContainer = document.getElementById('confettiContainer');
         const emojis = ['🎉', '🎊', '✨', '⭐', '🎈', '🎂', '🎁', '💖', '🌟', '🌸', '💗', '🎀'];
 
-        function launchConfetti(count = 35) {
+        function launchConfetti(count = 30) {
             for (let i = 0; i < count; i++) {
                 const el = document.createElement('div');
                 el.className = 'confetti-piece';
                 el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
                 el.style.left = Math.random() * 100 + '%';
-                el.style.fontSize = (Math.random() * 24 + 16) + 'px';
+                el.style.fontSize = (Math.random() * 22 + 14) + 'px';
                 el.style.animationDuration = (Math.random() * 2.5 + 2) + 's';
                 el.style.animationDelay = (Math.random() * 1.2) + 's';
                 confettiContainer.appendChild(el);
@@ -899,7 +955,7 @@
                 this.style.pointerEvents = 'none';
                 setTimeout(() => {
                     this.textContent = '🎈';
-                    this.style.opacity = '0.5';
+                    this.style.opacity = '0.4';
                     this.style.pointerEvents = 'auto';
                 }, 2000);
             });
@@ -936,8 +992,7 @@
                 `;
         document.head.appendChild(style);
 
-        // НЕБОЛЬШОЙ КОНФЕТТИ ПРИ СТАРТЕ
-        setTimeout(() => launchConfetti(12), 400);
+        setTimeout(() => launchConfetti(10), 400);
 
         console.log('💕 Сайт для первого клиента готов!');
     </script>
